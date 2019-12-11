@@ -1,5 +1,5 @@
 const app = require('../server.js');
-const db = require('../db.js');
+const Contact = require('../contacts.js');
 const request = require('supertest');
 
 describe("Hello world tests", () => {
@@ -27,13 +27,13 @@ describe("Contacts API", () => {
 
     describe("GET /contacts", () => {
 
-        beforeAll(() => {
+        beforeAll(() => {            
             const contacts = [
-                {"name": "juan", "phone": "5555"},
-                {"name": "pepe", "phone": "6666"}
+                new Contact({"name": "juan", "phone": "5555"}),
+                new Contact({"name": "pepe", "phone": "6666"})
             ];
 
-            dbFind = jest.spyOn(db, "find");
+            dbFind = jest.spyOn(Contact, "find");
             dbFind.mockImplementation((query, callback) => {
                 callback(null, contacts);
             });
@@ -53,7 +53,7 @@ describe("Contacts API", () => {
         let dbInsert;
 
         beforeEach(() => {
-            dbInsert = jest.spyOn(db, "insert");
+            dbInsert = jest.spyOn(Contact, "create");
         });
 
         it('Should add a new contact if everything is fine', () => {
