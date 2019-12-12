@@ -1,6 +1,8 @@
 const app = require('../server.js');
 const Contact = require('../contacts.js');
+const ApiKey = require('../apikeys');
 const request = require('supertest');
+
 
 describe("Hello world tests", () => {
 
@@ -33,14 +35,24 @@ describe("Contacts API", () => {
                 new Contact({"name": "pepe", "phone": "6666"})
             ];
 
+            const user = {
+                user: "test",
+                apikey: "1"
+            }
+
             dbFind = jest.spyOn(Contact, "find");
             dbFind.mockImplementation((query, callback) => {
                 callback(null, contacts);
             });
+
+            auth = jest.spyOn(ApiKey, "findOne");
+            auth.mockImplementation((query, callback) => {
+                callback(null, new ApiKey(user));
+            })
         });
 
         it('Should return all contacts', () => {
-            return request(app).get('/api/v1/contacts').then((response) => {
+            return request(app).get('/api/v1/contacts').set('apikey', '1').then((response) => {
                 expect(response.statusCode).toBe(200);
                 expect(response.body).toBeArrayOfSize(2);
                 expect(dbFind).toBeCalledWith({}, expect.any(Function));
