@@ -27,6 +27,10 @@ app.get(BASE_API_PATH + "/contacts", (req, res) => {
 
 });
 
+app.get(BASE_API_PATH + "/healthz", (req, res) => {
+    res.sendStatus(200);
+})
+
 app.post(BASE_API_PATH + "/contacts", (req, res) => {
     console.log(Date() + " - POST /contacts");
     var contact = req.body;

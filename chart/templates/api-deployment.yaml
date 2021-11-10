@@ -40,10 +40,10 @@ spec:
           livenessProbe:
             periodSeconds: 1
             httpGet:
-              path: /api/healthz
+              path: /api/v1/healthz
               port: 8080
           readinessProbe:
             periodSeconds: 1
             httpGet:
-              path: /api/healthz
+              path: /api/v1/healthz
               port: 8080
