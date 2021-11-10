@@ -18,24 +18,6 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       terminationGracePeriodSeconds: 0
-      initContainers:
-        - name: load-data
-          image: {{ .Values.api.image }}:{{ .Values.tag }}
-          command:
-            - yarn
-            - load
-          env:
-            - name: MONGODB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb
-                  key: mongodb-password
-            - name: MONGODB_USERNAME
-              value: okteto
-            - name: MONGODB_DATABASE
-              value: okteto
-            - name: MONGODB_HOST
-              value: mongodb
       containers:
         - name: api
           image: {{ .Values.api.image }}:{{ .Values.tag }}
