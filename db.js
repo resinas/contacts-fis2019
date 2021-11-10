@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
-const DB_URL = (process.env.MONGO_URL || 'mongodb://mongo/test');
+
+const ENV_URL = 'mongodb://' + process.env.MONGODB_USERNAME+':'+process.env.MONGODB_PASSWORD+"//"+process.env.MONGODB_HOST+"/"+process.env.MONGODB_DATABASE;
+console.log("ENV:"+ENV_URL);
+const DB_URL = (! process.env.MONGODB_HOST) ? 'mongodb://mongo/test' : ENV_URL;
+
+console.log("DB:" + DB_URL)
 
 const dbConnect = function() {
     const db = mongoose.connection;
