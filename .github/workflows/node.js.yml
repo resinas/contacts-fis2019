@@ -13,7 +13,6 @@ env:
   APP_MONGO_USER: test
   APP_MONGO_PASS: password
   APP_MONGO_DB: test
-  MONGO_URL: mongodb://${APP_MONGO_USER}:${APP_MONGO_PASS}@mongo/${APP_MONGO_DB}
 
 jobs:
   build:
@@ -29,9 +28,9 @@ jobs:
       mongo:
         image: mongo
         env:
-          MONGO_INITDB_ROOT_USERNAME: ${APP_MONGO_USER}
-          MONGO_INITDB_ROOT_PASSWORD: ${APP_MONGO_PASS}
-          MONGO_INITDB_DATABASE: ${APP_MONGO_DB}
+          MONGO_INITDB_ROOT_USERNAME: ${env.APP_MONGO_USER}
+          MONGO_INITDB_ROOT_PASSWORD: ${env.APP_MONGO_PASS}
+          MONGO_INITDB_DATABASE: ${env.APP_MONGO_DB}
         options: >-
           --health-cmd mongo
           --health-interval 10s
@@ -50,3 +49,6 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+      env:
+        MONGO_URL: mongodb://${env.APP_MONGO_USER}:${env.APP_MONGO_PASS}@mongo/${env.APP_MONGO_DB}
+
