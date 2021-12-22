@@ -50,5 +50,5 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
       env:
-        MONGO_URL: mongodb://${{env.APP_MONGO_USER}}:${{env.APP_MONGO_PASS}}@mongo/${{env.APP_MONGO_DB}}
+        MONGO_URL: mongodb://${{env.APP_MONGO_USER}}:${{env.APP_MONGO_PASS}}@localhost/${{env.APP_MONGO_DB}}
 
