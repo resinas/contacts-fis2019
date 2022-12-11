@@ -15,7 +15,7 @@
   "author": "Manuel Resinas",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongoose": "^5.8.0",
     "nedb": "^1.8.0"
   },
